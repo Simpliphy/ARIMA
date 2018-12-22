@@ -1,0 +1,5 @@
+{ "growth_rate": 1.0 ,
+  "initial_value" : 0.0,
+  "std_deviation": 0.5,
+  "seasonal_template": [1.5, 1, 6, 4, 5, 7, 9]
+}
