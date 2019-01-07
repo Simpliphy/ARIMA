@@ -1,4 +1,4 @@
-from time_series_simulator import TimeSeriesSimulator
+from time_series.TimeSeriesSimulator import TimeSeriesSimulator
 
 import pytest
 
