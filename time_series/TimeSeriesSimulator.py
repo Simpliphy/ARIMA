@@ -17,10 +17,24 @@ class TimeSeriesSimulator(object):
         -additive components
         """
 
-        self._number_time_steps = 1000
-        self._time_steps = np.linspace(0, 100, self._number_time_steps)
+        self._number_time_steps = 30
+        self._time_steps = np.array(range(self._number_time_steps))
         self._components = TimeSeriesComponents()
         self._parameters = TimeSeriesSimulatorParameters()
+
+    @property
+    def components(self):
+        return self._components
+
+    def load_parameters(self, filename, path):
+        self._parameters.load(filename, path)
+
+    def generate_time_series(self):
+
+        self._generate_linear_trend()
+        self._generate_gaussian_noise()
+        self._generate_seasonal_component()
+        self._sum_all_components()
 
     def _generate_linear_trend(self):
 
@@ -44,17 +58,8 @@ class TimeSeriesSimulator(object):
 
         self._components.seasonality = np.array(seasonal_component_list)
 
-    def generate_time_series(self):
-
-        self._generate_linear_trend()
-        self._generate_gaussian_noise()
-        self._generate_seasonal_component()
-        self._sum_all_components()
-
     def _sum_all_components(self):
 
         self._components.observation = self._components.trend + self._components.seasonality + self._components.noise
 
-    def load_parameters(self, filename, path):
 
-        self._parameters.load(filename, path)

@@ -13,7 +13,7 @@ def time_series_simulator():
 
 
 def test_inital_number_of_time_step(time_series_simulator):
-    assert time_series_simulator._number_time_steps == 1000
+    assert time_series_simulator._number_time_steps == 30 # default value
 
 
 def test_generate_time_series_not_none(time_series_simulator):
