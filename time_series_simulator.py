@@ -1,8 +1,8 @@
 import json
 import numbers
+import numpy as np
 
 class TimeSeriesSimulator(object):
-
 
     def __init__(self):
 
@@ -16,29 +16,42 @@ class TimeSeriesSimulator(object):
         """
 
         self._number_time_steps = 1000
+        self._time_steps = np.linspace(0, 100, self._number_time_steps)
         self._components = TimeSeriesComponents()
         self._parameters = TimeSeriesSimulatorParameters()
 
-    def _generate_linear_trend(self, growth_rate, initial_value):
+    def _generate_linear_trend(self):
 
-        raise NotImplementerError
+        self._components.trend = self._parameters.initial_value + self._time_steps*self._parameters.growth_rate
 
-    def _generate_gaussian_noise(self, std_deviation):
+    def _generate_gaussian_noise(self):
 
-        raise NotImplementerError
+        self._components.noise = np.random.normal(0, self._parameters.std_deviation, self._number_time_steps)
 
-    def _generate_seasonal_component(self, seasonal_template):
+    def _generate_seasonal_component(self):
 
-        raise NotImplementerError
+        seasonal_component_list = list()
+
+        for index_time_step in range(self._number_time_steps):
+
+            seasonal_period = len(self._parameters.seasonal_template)
+            index_in_season = index_time_step % seasonal_period
+            value = self._parameters.seasonal_template[index_in_season]
+
+            seasonal_component_list.append(value)
+
+        self._components.seasonality = np.array(seasonal_component_list)
 
     def generate_time_series(self):
 
-        self._generate_linear_trend(self._parameters.growth_rate, self._parameters.initial_value)
-        self._generate_gaussian_noise(self._parameters.std_deviation)
-        self._generate_seasonal_component(self._parameters.seasonal_template)
+        self._generate_linear_trend()
+        self._generate_gaussian_noise()
+        self._generate_seasonal_component()
         self._sum_all_components()
-        
+
     def _sum_all_components(self):
+
+        self._components.observation = self._components.trend + self._components.seasonality + self._components.noise
 
     def load_parameters(self, filename, path):
 
@@ -60,17 +73,33 @@ class TimeSeriesComponents(object):
     def observation(self):
         return self._observation
 
+    @observation.setter
+    def observation(self, value):
+        self._observation = value
+
     @property
     def trend(self):
         return self._trend
+
+    @trend.setter
+    def trend(self, value):
+        self._trend = value
 
     @property
     def seasonality(self):
         return self._seasonality
 
+    @seasonality.setter
+    def seasonality(self, value):
+        self._seasonality = value
+
     @property
     def noise(self):
         return self._noise
+
+    @noise.setter
+    def noise(self, value):
+        self._noise = value
 
 
 class TimeSeriesSimulatorParameters(object):
