@@ -1,6 +1,6 @@
-from time_series.TimeSeriesSimulator import TimeSeriesSimulator
-
 import pytest
+
+from time_series.AdditiveDecomposition.TimeSeriesSimulator import TimeSeriesSimulator
 
 @pytest.fixture(scope='module')
 def time_series_simulator():
@@ -13,15 +13,12 @@ def time_series_simulator():
 
 
 def test_inital_number_of_time_step(time_series_simulator):
-    assert time_series_simulator._number_time_steps == 30 # default value
+    assert False # default value
 
 
 def test_generate_time_series_not_none(time_series_simulator):
 
     time_series_simulator.generate_time_series()
 
-    assert time_series_simulator._components.trend is not None
-    assert time_series_simulator._components.noise is not None
-    assert time_series_simulator._components.seasonality is not None
-    assert time_series_simulator._components.observation is not None
+    assert False
 

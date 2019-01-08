@@ -1,4 +1,5 @@
 import json
+import numbers
 
 class TimeSeriesSimulatorParameters(object):
 

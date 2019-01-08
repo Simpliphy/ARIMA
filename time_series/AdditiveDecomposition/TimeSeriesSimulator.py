@@ -1,8 +1,7 @@
-import numbers
 import numpy as np
 
-from time_series.TimeSeriesComponents import TimeSeriesComponents
-from time_series.TimeSeriesSimulatorParameters import TimeSeriesSimulatorParameters
+from time_series.AdditiveDecomposition.TimeSeriesComponents import TimeSeriesComponents
+from time_series.AdditiveDecomposition.TimeSeriesSimulatorParameters import TimeSeriesSimulatorParameters
 
 class TimeSeriesSimulator(object):
 
