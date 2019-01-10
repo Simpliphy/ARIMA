@@ -5,9 +5,9 @@ from time_series.ARIMA.TimeSeriesSimulatorParametersARIMA import TimeSeriesSimul
 
 class TimeSeriesSimulatorARIMA(object):
 
-    def __init__(self):
+    def __init__(self, number_time_steps=100):
 
-        self._number_time_steps = 30
+        self._number_time_steps = number_time_steps
         self._time_steps = np.array(range(self._number_time_steps))
         self._components = Components()
         self._parameters = TimeSeriesSimulatorParameters()
@@ -20,9 +20,10 @@ class TimeSeriesSimulatorARIMA(object):
         assert self._parameters.isInitialised(), "The parameters must be initialized"
 
         self._components.initialize_to_zeros(self._number_time_steps)
+        initial_values_length = len(self._parameters.initial_values)
 
-        self._components.observation_values[0] = self._parameters.initial_value
-        for current_time_index in range(1, self._number_time_steps):
+        self._components.observation_values[0:initial_values_length] = self._parameters.initial_values
+        for current_time_index in range(initial_values_length, self._number_time_steps):
 
             current_value = 0
             for autoregressive_part in self._parameters.autoregressive_lag_coefficients_pairs:
@@ -48,6 +49,8 @@ class TimeSeriesSimulatorARIMA(object):
 
             self._components.observation_values[current_time_index] = current_value
             self._components.noise_values[current_time_index] = current_noise
+
+        self._components.remove_intial_values(initial_values_length)
 
     @property
     def components(self):

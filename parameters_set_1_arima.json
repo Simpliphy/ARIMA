@@ -1,11 +1,12 @@
 {
   "autoregressive_lag_coefficients_pairs": [{"lag": 1, "coefficient": 1},
                                             {"lag":12, "coefficient": 1},
-                                            {"lag":13, "coefficient": 1}],
+                                            {"lag":13, "coefficient": -1}],
 
   "moving_average_lag_coefficients_pairs": [{"lag": 1, "coefficient": -0.840},
                                             {"lag":12, "coefficient": -0.636},
                                             {"lag":13, "coefficient": 0.534}],
-  "initial_value": 875,
+
+  "initial_values": [800, 700, 700, 600, 800, 900, 900, 600, 700, 800, 900, 1000, 1100],
   "std_deviation": 40
 }

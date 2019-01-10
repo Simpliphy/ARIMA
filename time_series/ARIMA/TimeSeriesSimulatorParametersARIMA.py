@@ -6,7 +6,7 @@ class TimeSeriesSimulatorParameters(object):
 
         self._autoregressive_lag_coefficients_pairs = None
         self._moving_average_lag_coefficients_pairs = None
-        self._initial_value = None
+        self._initial_values = None
 
     def load(self, filename, path):
 
@@ -15,7 +15,7 @@ class TimeSeriesSimulatorParameters(object):
 
         self._autoregressive_lag_coefficients_pairs = parameters_dict["autoregressive_lag_coefficients_pairs"]
         self._moving_average_lag_coefficients_pairs = parameters_dict["moving_average_lag_coefficients_pairs"]
-        self._initial_value = parameters_dict["initial_value"]
+        self._initial_values = parameters_dict["initial_values"]
         self._std_deviation = parameters_dict["std_deviation"]
 
     @property
@@ -27,8 +27,8 @@ class TimeSeriesSimulatorParameters(object):
         return self._moving_average_lag_coefficients_pairs
 
     @property
-    def initial_value(self):
-        return self._initial_value
+    def initial_values(self):
+        return self._initial_values
 
     @property
     def std_deviation(self):
@@ -40,7 +40,7 @@ class TimeSeriesSimulatorParameters(object):
             return False
         elif self._moving_average_lag_coefficients_pairs is None:
             return False
-        elif self._initial_value is None:
+        elif self._initial_values is None:
             return False
         elif self._std_deviation is None:
             return False
@@ -78,4 +78,4 @@ class LagCoefficientsPair(object):
         assert isinstance(value, numbers.Real), "the coefficient value provided must be a real number"
 
         self._coefficient = value
-"""3
+"""

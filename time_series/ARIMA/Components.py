@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Components(object):
 
@@ -55,3 +56,31 @@ class Components(object):
             return 0
         else:
             return self._noise_values[index_to_get]
+
+    def remove_intial_values(self, initial_values_length):
+
+        self._observation_values = self._observation_values[initial_values_length:]
+        self._noise_values = self._noise_values[initial_values_length:]
+
+    def show(self):
+
+        assert self._noise_values is not None
+        assert self._observation_values is not None
+
+        x = range(len(self._noise_values))
+
+        plt.subplot(211)
+        plt.plot(x, self._observation_values)
+        plt.ylabel('observation')
+        plt.grid(True)
+        plt.gca().xaxis.grid(True, which='minor')  # minor grid on too
+
+        plt.subplot(212)
+        plt.plot(x, self._noise_values)
+        plt.ylabel('noise')
+        plt.xlabel("time step")
+        plt.grid(True)
+        plt.gca().xaxis.grid(True, which='minor')  # minor grid on too
+
+        plt.tight_layout()
+        plt.show()

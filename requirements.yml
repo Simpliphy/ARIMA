@@ -1,0 +1,8 @@
+name: env_ARIMA
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - numpy=1.14.3
+  - matplotlib=2.2.3
+  - pytest
